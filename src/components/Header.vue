@@ -9,9 +9,9 @@
         </div>
       </div>
 
-      <!-- <router-link to="/settings" class="settings_icon">
+      <router-link to="/settings" class="settings_icon">
         <i class="bi bi-gear-fill"></i>
-      </router-link> -->
+      </router-link>
     </div>
   </header>
 </template>
@@ -96,11 +96,11 @@ header {
 }
 
 .settings_icon {
-  font-size: 24px; /* 아이콘 크기 */
+  font-size: 23px; /* 아이콘 크기 */
   color: black; /* 아이콘 색상 */
   cursor: pointer;
   position: absolute;
-  right: 20px; /* 오른쪽에 위치 */
+  right: 22px; /* 오른쪽에 위치 */
 }
 
 /* .btn_group button:hover {
