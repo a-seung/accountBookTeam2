@@ -235,9 +235,6 @@ button:focus {
 }
 
 /* 트랜잭션 스타일 */
-.transactions {
-  margin-bottom: 1rem;
-}
 
 /* 반응형 레이아웃을 위해 뷰포트 설정 */
 html {
@@ -475,59 +472,7 @@ button:focus {
   font-weight: bold;
 }
 
-/* 트랜잭션 스타일 */
-.transactions {
-  margin-bottom: 1rem;
-  flex: 1; /* 여유 공간 차지 */
-  overflow-y: auto; /* 세로 스크롤 */
-  padding: 0 10px;
-}
-
-.transactions::-webkit-scrollbar {
-  display: none;
-}
-
-.transaction {
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.transaction-date {
-  background-color: #c9ebe4;
-  flex: 1;
-  border-radius: 5px;
-}
-
-.transaction-details {
-  display: flex;
-  justify-content: space-between;
-}
-.bold-date {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.description,
-.method,
-.amount {
-  flex: 1;
-}
-
-.income {
-  color: blue;
-  font-style: bold;
-}
-
-.expense,
-.expenses {
-  color: red;
-  font-weight: bold;
-}
-
-/* 플로팅 액션 버튼 스타일 */
-/* 푸터 스타일 */
+/* 푸터 스타일 - 모달 버튼 */
 .footer {
   background-color: #a7dad0;
   color: #fff;
@@ -538,6 +483,25 @@ button:focus {
   right: 1.1rem;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
 /* 달력 모달 스타일 */
 .modal {
   display: none;
@@ -734,46 +698,6 @@ button:focus {
   right: 1.1rem;
 }
 
-/* 달력 모달 스타일 */
-.modinl {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
-  position: relative;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 /* 달력 스타일 */
 #calendar {
   text-align: center;
@@ -784,7 +708,15 @@ button:focus {
   width: 100%;
   border-collapse: collapse;
 }
-
+.calendar_header {
+  display: flex;
+  height: 80px;
+  font-size: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 0 20px;
+  font-weight: bold;
+}
 #calendar th,
 #calendar td {
   border: 1px solid #ddd;
