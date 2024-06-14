@@ -1,6 +1,20 @@
 <template>
   <div class="container">
     <Header />
+
+    <!-- 월 변경 바 -->
+    <div class="calendar_header">
+      <button @click="prevMonth">&lt;</button>
+      <div class="calendar_month">{{ year }}년 {{ month }}월</div>
+      <button @click="nextMonth">&gt;</button>
+    </div>
+
+    <SummaryStats
+      :income="monthlyIncome"
+      :expense="monthlyExpense"
+      :filters="filters"
+    />
+
     <div class="chart-container">
       <DoughnutChart :chartData="chartData" :chartOptions="chartOptions" />
     </div>
@@ -30,9 +44,66 @@ import { ref, computed, watch } from 'vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
 import Header from '@/components/Header.vue';
 import { useTransactionStore } from '@/stores/transaction';
+import SummaryStats from '@/components/SummaryStats.vue';
 
 const transactionStore = useTransactionStore();
-const categoryExpenses = computed(() => transactionStore.categoryExpenses);
+const { updateMonth } = transactionStore;
+// const categoryExpenses = computed(() => transactionStore.categoryExpenses);
+const categoryExpensesByMonth = computed(
+  () => transactionStore.categoryExpensesByMonth
+);
+const year = ref(new Date().getFullYear());
+const month = ref(new Date().getMonth() + 1);
+
+function prevMonth() {
+  month.value -= 1;
+  if (month.value < 1) {
+    month.value = 12;
+    year.value -= 1;
+  }
+
+  updateMonth(month.value);
+}
+
+function nextMonth() {
+  month.value += 1;
+  if (month.value > 12) {
+    month.value = 1;
+    year.value += 1;
+  }
+
+  updateMonth(month.value);
+}
+
+const transactions = computed(() => transactionStore.total);
+
+const monthlyIncome = computed(() => {
+  return transactions.value
+    .filter(
+      (transaction) =>
+        transaction.type === 'income' &&
+        new Date(transaction.date).getFullYear() === year.value &&
+        new Date(transaction.date).getMonth() + 1 === month.value
+    )
+    .reduce((sum, transaction) => sum + parseInt(transaction.amount), 0);
+});
+
+const monthlyExpense = computed(() => {
+  return transactions.value
+    .filter(
+      (transaction) =>
+        transaction.type === 'expense' &&
+        new Date(transaction.date).getFullYear() === year.value &&
+        new Date(transaction.date).getMonth() + 1 === month.value
+    )
+    .reduce((sum, transaction) => sum + parseInt(transaction.amount), 0);
+});
+
+const filters = ref({
+  showIncome: true,
+  showExpense: true,
+  showBalance: true,
+});
 
 const chartData = ref({
   labels: [
@@ -145,14 +216,14 @@ const items = ref([
 
 const updateItems = () => {
   items.value.forEach((item) => {
-    item.amount = categoryExpenses.value[item.name] || 0;
+    item.amount = categoryExpensesByMonth.value[item.name] || 0;
   });
   // 지출 순서대로 정렬
   items.value.sort((a, b) => b.amount - a.amount);
 };
 
 watch(
-  categoryExpenses,
+  categoryExpensesByMonth,
   (newExpenses) => {
     chartData.value.datasets[0].data = [
       newExpenses['식비'],
@@ -174,6 +245,32 @@ const formatCurrency = (value) => {
 </script>
 
 <style scoped>
+* {
+  font-size: 20px;
+}
+
+.container {
+  overflow: hidden;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.calendar_header {
+  display: flex;
+  height: 80px;
+  font-size: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 0 20px;
+  font-size: 20px;
+}
+
+.calendar_month {
+  font-weight: bold;
+}
+
 .container {
   max-width: 375px;
   margin: 0 auto;
