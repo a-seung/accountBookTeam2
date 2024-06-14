@@ -3,9 +3,7 @@
   height: 812px;
   position: relative;
   background: white;
-  box-shadow: 0 -8px 6px -2px rgba(0, 0, 0, 0.1),
-    8px 0 6px -2px rgba(0, 0, 0, 0.1), 0 8px 6px -2px rgba(0, 0, 0, 0.1),
-    -8px 0 6px -2px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 -8px 6px -2px rgba(0, 0, 0, 0.1), 8px 0 6px -2px rgba(0, 0, 0, 0.1), 0 8px 6px -2px rgba(0, 0, 0, 0.1), -8px 0 6px -2px rgba(0, 0, 0, 0.1) !important;
 
   border-radius: 40px !important;
   overflow-y: auto;
@@ -103,7 +101,7 @@
   transform: translateX(-50%); /* 수정: 가운데 정렬을 위해 추가 */
   width: 248px;
   height: 248px;
-  background: #dbdbdb url('아직안정해진이미지.jpg') center/cover;
+  background: #dbdbdb url('/public/JUNILHI.jpg') center/cover;
 }
 
 .name {
@@ -171,7 +169,5 @@
   left: 20px; /* 왼쪽 정렬 및 여백 추가 */
   transform: none; /* transform 속성 초기화 */
   top: 50%; /* 부모 요소의 높이의 절반 위치에 정렬 */
-  transform: translateY(
-    -50%
-  ); /* 요소의 높이의 절반만큼 위로 이동하여 가운데 정렬 */
+  transform: translateY(-50%); /* 요소의 높이의 절반만큼 위로 이동하여 가운데 정렬 */
 }

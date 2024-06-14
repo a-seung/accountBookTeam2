@@ -1,26 +1,14 @@
 <template>
   <div class="summary-stats">
-    <div
-      class="stat"
-      @click="toggleFilter('showIncome')"
-      :class="{ active: filters.showIncome }"
-    >
+    <div class="stat" @click="toggleFilter('showIncome')" :class="{ active: filters.showIncome }">
       <div class="title">수입</div>
       <div class="value income">{{ formatNumber(income) }}원</div>
     </div>
-    <div
-      class="stat"
-      @click="toggleFilter('showExpense')"
-      :class="{ active: filters.showExpense }"
-    >
+    <div class="stat" @click="toggleFilter('showExpense')" :class="{ active: filters.showExpense }">
       <div class="title">지출</div>
       <div class="value expense">{{ formatNumber(expense) }}원</div>
     </div>
-    <div
-      class="stat"
-      @click="toggleFilter('showBalance')"
-      :class="{ active: filters.showBalance }"
-    >
+    <div class="stat" @click="toggleShowAll" :class="{ active: filters.showIncome && filters.showExpense }">
       <div class="title">합계</div>
       <div class="value">{{ formatNumber(balance) }}원</div>
     </div>
@@ -53,8 +41,17 @@ function toggleFilter(filterKey) {
 
   emit('updateFilter', newFilters);
 }
-</script>
 
+function toggleShowAll() {
+  const newFilters = {
+    showIncome: true,
+    showExpense: true,
+    showBalance: true,
+  };
+
+  emit('updateFilter', newFilters);
+}
+</script>
 <style scoped>
 .summary-stats {
   display: flex;

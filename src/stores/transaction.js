@@ -9,6 +9,7 @@ export const useTransactionStore = defineStore('transaction', () => {
     total: [],
     totalIncome: 0,
     totalExpense: 0,
+    month: new Date().getMonth() + 1,
   });
 
   async function fetchTransactions() {
@@ -39,14 +40,8 @@ export const useTransactionStore = defineStore('transaction', () => {
         return bTime - aTime;
       });
 
-      state.totalIncome = state.income.reduce(
-        (acc, cur) => (acc += parseInt(cur.amount)),
-        0
-      );
-      state.totalExpense = state.expense.reduce(
-        (acc, cur) => (acc += parseInt(cur.amount)),
-        0
-      );
+      state.totalIncome = state.income.reduce((acc, cur) => (acc += parseInt(cur.amount)), 0);
+      state.totalExpense = state.expense.reduce((acc, cur) => (acc += parseInt(cur.amount)), 0);
     } catch (error) {
       alert('데이터 통신 오류 발생');
       console.error(error);
@@ -94,10 +89,7 @@ export const useTransactionStore = defineStore('transaction', () => {
     const year = date.getFullYear();
     return transactions.value.filter((transaction) => {
       const transactionDate = new Date(transaction.date);
-      return (
-        transactionDate.getMonth() === month &&
-        transactionDate.getFullYear() === year
-      );
+      return transactionDate.getMonth() === month && transactionDate.getFullYear() === year;
     });
   };
 
@@ -119,10 +111,7 @@ export const useTransactionStore = defineStore('transaction', () => {
 
   async function addIncomeTransaction(transaction) {
     try {
-      const addResponse = await axios.post(
-        'http://localhost:3000/income',
-        transaction
-      );
+      const addResponse = await axios.post('http://localhost:3000/income', transaction);
 
       if (addResponse.status !== 201) return alert('데이터 전송 실패');
       fetchTransactions();
@@ -134,10 +123,7 @@ export const useTransactionStore = defineStore('transaction', () => {
 
   async function addExpenseTransaction(transaction) {
     try {
-      const addResponse = await axios.post(
-        'http://localhost:3000/expense',
-        transaction
-      );
+      const addResponse = await axios.post('http://localhost:3000/expense', transaction);
 
       if (addResponse.status !== 201) return alert('데이터 전송 실패');
       fetchTransactions();
@@ -147,23 +133,50 @@ export const useTransactionStore = defineStore('transaction', () => {
     }
   }
 
+  async function deleteTransaction(transaction) {
+    try {
+      const deleteResponse = await axios.delete(`http://localhost:3000/${transaction.type}/${transaction.id}`);
+
+      if (deleteResponse.status !== 200) return alert('삭제 실패');
+
+      fetchTransactions(); // 삭제 후 목록 갱신
+    } catch (error) {
+      alert('데이터 통신 오류 발생');
+      console.error(error);
+    }
+  }
   const categoryExpenses = computed(() => {
-    const categories = [
-      '식비',
-      '교통비',
-      '문화생활',
-      '패션/미용',
-      '마트/편의점',
-      '고정비',
-      '기타',
-    ];
+    const categories = ['식비', '교통비', '문화생활', '패션/미용', '마트/편의점', '고정비', '기타'];
+
+    const result = {};
+    categories.forEach((category) => {
+      result[category] = state.expense.filter((expense) => expense.category === category).reduce((sum, expense) => sum + parseInt(expense.amount), 0);
+    });
+
+    return result;
+  });
+
+  const updateMonth = (month) => {
+    state.month = month;
+  };
+
+  const categoryExpensesByMonth = computed(() => {
+    const categories = ['식비', '교통비', '문화생활', '패션/미용', '마트/편의점', '고정비', '기타'];
+
+    const date = new Date();
+    const year = date.getFullYear();
 
     const result = {};
     categories.forEach((category) => {
       result[category] = state.expense
-        .filter((expense) => expense.category === category)
+        .filter((expense) => {
+          const expenseDate = new Date(expense.date);
+          return expense.category === category && expenseDate.getMonth() === state.month - 1 && expenseDate.getFullYear() === year;
+        })
         .reduce((sum, expense) => sum + parseInt(expense.amount), 0);
     });
+
+    console.log(result);
 
     return result;
   });
@@ -189,6 +202,11 @@ export const useTransactionStore = defineStore('transaction', () => {
     getExpensesForMonth,
     getTotalBalanceForMonth,
     fetchTransactions,
+
+    categoryExpensesByMonth,
+
+    deleteTransaction,
     categoryExpenses,
+    updateMonth,
   };
 });
