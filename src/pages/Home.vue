@@ -8,7 +8,7 @@
       <div class="calendar_month">{{ year }}년 {{ month }}월</div>
       <button @click="nextMonth" style="font-size: 20px">&gt;</button>
     </div>
-    <SummaryStats :income="filteredIncome" :expense="filteredExpense" :filters="filters" @updateFilter="setFilters" />
+    <SummaryStats :income="totalIncome" :expense="totalExpense" :filters="filters" @updateFilter="setFilters" />
 
     <div class="transactions">
       <div v-for="(groupedTransaction, date) in filteredGroupedTransactions" :key="date">
@@ -205,11 +205,9 @@ function deleteTransaction(transaction) {
 function openModal() {
   showModal.value = true;
 }
-
 function closeModal() {
   showModal.value = false;
 }
-
 watch([year, month, transactions], () => {
   updatePage();
 });
