@@ -1,3 +1,4 @@
+e 코드 복사
 <template>
   <div class="summary-stats">
     <div
@@ -6,7 +7,9 @@
       :class="{ active: filters.showIncome }"
     >
       <div class="title">수입</div>
-      <div class="value income">{{ formatNumber(income) }}원</div>
+      <div class="value income" v-if="filters.showIncome">
+        {{ formatNumber(income) }}원
+      </div>
     </div>
     <div
       class="stat"
@@ -14,12 +17,14 @@
       :class="{ active: filters.showExpense }"
     >
       <div class="title">지출</div>
-      <div class="value expense">{{ formatNumber(expense) }}원</div>
+      <div class="value expense" v-if="filters.showExpense">
+        {{ formatNumber(expense) }}원
+      </div>
     </div>
     <div
       class="stat"
-      @click="toggleFilter('showBalance')"
-      :class="{ active: filters.showBalance }"
+      @click="toggleShowAll"
+      :class="{ active: filters.showIncome && filters.showExpense }"
     >
       <div class="title">합계</div>
       <div class="value">{{ formatNumber(balance) }}원</div>
@@ -53,8 +58,17 @@ function toggleFilter(filterKey) {
 
   emit('updateFilter', newFilters);
 }
-</script>
 
+function toggleShowAll() {
+  const newFilters = {
+    showIncome: true,
+    showExpense: true,
+    showBalance: true,
+  };
+
+  emit('updateFilter', newFilters);
+}
+</script>
 <style scoped>
 .summary-stats {
   display: flex;

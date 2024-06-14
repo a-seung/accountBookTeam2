@@ -3,9 +3,24 @@
     <div class="header_bar">
       <div class="btn_group_container">
         <div class="btn_group">
-          <router-link to="/" class="btn left" :class="{ active: view === 'daily' }">일일</router-link>
-          <router-link to="/calendar" class="btn middle" :class="{ active: view === 'monthly' }">월별</router-link>
-          <router-link to="/chart" class="btn right" :class="{ active: view === 'summary' }">합계</router-link>
+          <router-link
+            to="/"
+            class="btn left"
+            :class="{ active: view === 'daily' }"
+            >일일</router-link
+          >
+          <router-link
+            to="/calendar"
+            class="btn middle"
+            :class="{ active: view === 'monthly' }"
+            >월별</router-link
+          >
+          <router-link
+            to="/chart"
+            class="btn right"
+            :class="{ active: view === 'summary' }"
+            >합계</router-link
+          >
         </div>
       </div>
 
@@ -23,10 +38,25 @@ import { useRouter, useRoute } from 'vue-router';
 // const route = ref('monthly'); // 반응형 데이터로 'monthly'를 기본값으로 설정
 const router = useRouter();
 const route = useRoute();
-const view = ref(route.path === '/' ? 'daily' : route.path === '/calendar' ? 'monthly' : route.path === '/chart' ? 'summary' : '');
+const view = ref(
+  route.path === '/'
+    ? 'daily'
+    : route.path === '/calendar'
+    ? 'monthly'
+    : route.path === '/chart'
+    ? 'summary'
+    : ''
+);
 
 watchEffect(() => {
-  view.value = route.path === '/' ? 'daily' : route.path === '/calendar' ? 'monthly' : route.path === '/chart' ? 'summary' : '';
+  view.value =
+    route.path === '/'
+      ? 'daily'
+      : route.path === '/calendar'
+      ? 'monthly'
+      : route.path === '/chart'
+      ? 'summary'
+      : '';
 });
 
 function navigate(viewName) {
