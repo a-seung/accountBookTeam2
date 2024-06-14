@@ -54,8 +54,8 @@
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, watch, computed } from 'vue';
-import Header from './Header.vue'; // Header 컴포넌트 가져오기
-import SummaryStats from './SummaryStats.vue'; // SummaryStats 컴포넌트 가져오기
+import Header from '@/components/Header.vue'; // Header 컴포넌트 가져오기
+import SummaryStats from '@/components/SummaryStats.vue'; // SummaryStats 컴포넌트 가져오기
 import { useTransactionStore } from '@/stores/transaction';
 
 const year = ref(new Date().getFullYear());
