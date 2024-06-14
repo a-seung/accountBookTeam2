@@ -148,6 +148,20 @@ export const useTransactionStore = defineStore('transaction', () => {
     }
   }
 
+  async function deleteTransaction(transaction) {
+    try {
+      const deleteResponse = await axios.delete(
+        `http://localhost:3000/${transaction.type}/${transaction.id}`
+      );
+
+      if (deleteResponse.status !== 200) return alert('삭제 실패');
+
+      fetchTransactions(); // 삭제 후 목록 갱신
+    } catch (error) {
+      alert('데이터 통신 오류 발생');
+      console.error(error);
+    }
+  }
   const categoryExpenses = computed(() => {
     const categories = [
       '식비',
@@ -227,7 +241,10 @@ export const useTransactionStore = defineStore('transaction', () => {
     getExpensesForMonth,
     getTotalBalanceForMonth,
     fetchTransactions,
+
     categoryExpensesByMonth,
+
+    deleteTransaction,
     categoryExpenses,
     updateMonth,
   };
