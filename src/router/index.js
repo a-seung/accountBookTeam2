@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/pages/Home.vue';
 import Chart from '../pages/Chart.vue';
 import Settings from '@/pages/Settings.vue';
-import Calendar from '@/components/Calendar.vue';
+import Calendar from '@/pages/Calendar.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
