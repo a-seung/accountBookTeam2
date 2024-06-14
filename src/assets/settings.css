@@ -103,8 +103,7 @@
   transform: translateX(-50%); /* 수정: 가운데 정렬을 위해 추가 */
   width: 248px;
   height: 248px;
-  background: #dbdbdb url('/public/KakaoTalk_20240613_213253253.jpg')
-    center/cover;
+  background: #dbdbdb url('/public/JUNILHI.jpg') center/cover;
 }
 
 .name {
