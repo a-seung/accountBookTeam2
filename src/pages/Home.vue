@@ -9,34 +9,21 @@
       <button @click="nextMonth" style="font-size: 20px">&gt;</button>
     </div>
 
-    <SummaryStats
-      :income="monthlyIncome"
-      :expense="monthlyExpense"
-      :filters="filters"
-    />
+    <SummaryStats :income="monthlyIncome" :expense="monthlyExpense" :filters="filters" />
 
     <div class="transactions">
       <div v-for="(transactions, date) in groupedTransactions" :key="date">
         <div class="transaction-date">
           <span>
-            <button class="bold-date">
-              {{ formatDateWithoutMonth(date) }} ({{ formatDayOfWeek(date) }})
-            </button>
+            <button class="bold-date">{{ formatDateWithoutMonth(date) }} ({{ formatDayOfWeek(date) }})</button>
           </span>
         </div>
-        <div
-          v-for="transaction in transactions"
-          :key="transaction.id"
-          class="transaction"
-        >
+        <div v-for="transaction in transactions" :key="transaction.id" class="transaction">
           <div class="transaction-details">
             <div class="method" style="flex-basis: 80px; flex-grow: 0">
               {{ transaction.category }}
             </div>
-            <div
-              class="description"
-              style="flex-basis: 100px; padding-left: 10px"
-            >
+            <div class="description" style="flex-basis: 100px; padding-left: 10px">
               {{ transaction.content }}
             </div>
             <div
@@ -69,7 +56,7 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useTransactionStore } from '@/stores/transaction';
 import { useRouter, useRoute } from 'vue-router';
-import AddTransaction from './AddTransaction.vue';
+import AddTransaction from '@/components/AddTransaction.vue';
 import Header from '@/components/Header.vue';
 import SummaryStats from '@/components/SummaryStats.vue';
 
@@ -120,15 +107,7 @@ const formatDateWithoutMonth = (date) => {
 
 const formatDayOfWeek = (date) => {
   const dayOfWeek = new Date(date).getDay();
-  const days = [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ];
+  const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
   return days[dayOfWeek];
 };
 
@@ -140,10 +119,7 @@ const formatAmount = (amount) => {
 const groupedTransactions = computed(() => {
   const filteredTransactions = transactions.value.filter((transaction) => {
     const transactionDate = new Date(transaction.date);
-    return (
-      transactionDate.getFullYear() === year.value &&
-      transactionDate.getMonth() + 1 === month.value
-    );
+    return transactionDate.getFullYear() === year.value && transactionDate.getMonth() + 1 === month.value;
   });
 
   return filteredTransactions.reduce((groups, transaction) => {
@@ -158,23 +134,13 @@ const groupedTransactions = computed(() => {
 
 const monthlyIncome = computed(() => {
   return transactions.value
-    .filter(
-      (transaction) =>
-        transaction.type === 'income' &&
-        new Date(transaction.date).getFullYear() === year.value &&
-        new Date(transaction.date).getMonth() + 1 === month.value
-    )
+    .filter((transaction) => transaction.type === 'income' && new Date(transaction.date).getFullYear() === year.value && new Date(transaction.date).getMonth() + 1 === month.value)
     .reduce((sum, transaction) => sum + parseInt(transaction.amount), 0);
 });
 
 const monthlyExpense = computed(() => {
   return transactions.value
-    .filter(
-      (transaction) =>
-        transaction.type === 'expense' &&
-        new Date(transaction.date).getFullYear() === year.value &&
-        new Date(transaction.date).getMonth() + 1 === month.value
-    )
+    .filter((transaction) => transaction.type === 'expense' && new Date(transaction.date).getFullYear() === year.value && new Date(transaction.date).getMonth() + 1 === month.value)
     .reduce((sum, transaction) => sum + parseInt(transaction.amount), 0);
 });
 
