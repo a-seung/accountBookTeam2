@@ -926,7 +926,7 @@ button:focus {
 
 .addButton {
   display: flex;
-  justify-content: space-between; /* 저장 버튼과 닫기 버튼을 좌우로 정렬 */
+  justify-content: flex-end; /* 저장 버튼과 닫기 버튼을 좌우로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   margin-top: 20px;
 }
@@ -935,9 +935,10 @@ button:focus {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  background-color: #eeeeee;
+  color: 111111;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .addButton button:hover {
