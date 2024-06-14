@@ -324,4 +324,6 @@ updateCalendar(year.value, month.value); // 초기 달력 설정
 .balance {
   color: green;
 }
+
+/* 주석 */
 </style>
