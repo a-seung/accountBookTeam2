@@ -4,8 +4,8 @@
     <!-- 설정 글씨. 화살표 삽입 -->
     <div class="invisible_box_for_text">
       <!-- 왼쪽 화살표 추가 -->
-      <button @click="navigate">
-        <i class="mdi mdi-chevron-left arrow_go_back"></i>
+      <button @click="navigate" style="font-size: 20px" class="arrow_go_back">
+        &lt;
       </button>
 
       <div class="bold_text">설정</div>
@@ -35,7 +35,9 @@
       <div class="rectangle"></div>
       <div class="text">
         프로필 수정
-        <i class="mdi mdi-chevron-right arrow_next_text"></i>
+        <button style="font-size: 20x" class="button arrow_next_text">
+          &gt;
+        </button>
       </div>
       <div class="rotated"></div>
     </div>
@@ -44,7 +46,9 @@
       <div class="rectangle"></div>
       <div class="text">
         내 정보 수정
-        <i class="mdi mdi-chevron-right arrow_next_text"></i>
+        <button style="font-size: 20px" class="button arrow_next_text">
+          &gt;
+        </button>
       </div>
       <div class="rotated"></div>
     </div>
@@ -61,7 +65,9 @@
       <div class="rectangle"></div>
       <div class="text">
         수입분류 관리
-        <i class="mdi mdi-chevron-right arrow_next_text"></i>
+        <button style="font-size: 20x" class="button arrow_next_text">
+          &gt;
+        </button>
       </div>
       <div class="rotated"></div>
     </div>
@@ -70,7 +76,9 @@
       <div class="rectangle"></div>
       <div class="text">
         지출분류 관리
-        <i class="mdi mdi-chevron-right arrow_next_text"></i>
+        <button style="font-size: 20x" class="button arrow_next_text">
+          &gt;
+        </button>
       </div>
       <div class="rotated"></div>
     </div>
@@ -79,7 +87,9 @@
       <div class="rectangle"></div>
       <div class="text">
         자산설정
-        <i class="mdi mdi-chevron-right arrow_next_text"></i>
+        <button style="font-size: 20x" class="button arrow_next_text">
+          &gt;
+        </button>
       </div>
       <div class="rotated"></div>
     </div>
@@ -97,3 +107,12 @@ const navigate = (path) => {
 </script>
 
 <style src="@/assets/settings.css"></style>
+
+<style>
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+</style>

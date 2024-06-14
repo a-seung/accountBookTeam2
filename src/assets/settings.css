@@ -22,19 +22,32 @@
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
 }
+.button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  color: #111111;
+  cursor: pointer;
+  line-height: 1;
+}
 
 .arrow_go_back {
   position: absolute;
   left: 30px; /* 오른쪽 끝으로 정렬 */
-  font-size: 24px;
-  color: #111111;
-  cursor: pointer;
-  font-size: 35px;
+}
+
+/* text 옆쪽에 올 화살표 스타일 지정 */
+.arrow_next_text {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* 설정, 이름에 적용할 스타일 */
 .bold_text {
-  font-family: 'Mukta';
   font-style: normal;
   font-weight: 800;
   font-size: 16px;
@@ -45,7 +58,6 @@
   position: absolute;
   color: black;
   font-size: 14px;
-  font-family: Inter;
   font-weight: 100;
   word-wrap: break-word;
   left: 10px;
@@ -64,21 +76,11 @@
   display: flex;
   position: relative;
   align-items: center;
-  width: 100%;
+  width: 90%;
   color: black;
   font-size: 16px;
-  font-family: Inter;
   font-weight: 500;
   word-wrap: break-word;
-}
-
-/* text 옆쪽에 올 화살표 스타일 지정 */
-.arrow_next_text {
-  position: absolute;
-  right: 60px; /* 오른쪽 끝으로 정렬 */
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 35px;
 }
 
 .rotated {
@@ -108,7 +110,6 @@
   position: absolute;
   color: black;
   font-size: 18px;
-  font-family: Mukta;
   font-weight: 600;
   line-height: 20.52px;
   word-wrap: break-word;
