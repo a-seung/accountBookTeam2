@@ -1,4 +1,3 @@
-e 코드 복사
 <template>
   <div class="summary-stats">
     <div
@@ -7,9 +6,7 @@ e 코드 복사
       :class="{ active: filters.showIncome }"
     >
       <div class="title">수입</div>
-      <div class="value income" v-if="filters.showIncome">
-        {{ formatNumber(income) }}원
-      </div>
+      <div class="value income">{{ formatNumber(income) }}원</div>
     </div>
     <div
       class="stat"
@@ -17,9 +14,7 @@ e 코드 복사
       :class="{ active: filters.showExpense }"
     >
       <div class="title">지출</div>
-      <div class="value expense" v-if="filters.showExpense">
-        {{ formatNumber(expense) }}원
-      </div>
+      <div class="value expense">{{ formatNumber(expense) }}원</div>
     </div>
     <div
       class="stat"
